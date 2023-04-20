@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 using Amyra.Models;
 using Amyra.Data;
 
-namespace appfunko.Controllers
+namespace Amyra.Controllers
 {
     public class ContactoController : Controller
     {
