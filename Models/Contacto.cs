@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace appfunko.Models
+namespace Amyra.Models
 {
     [Table("t_contacto")]
     public class Contacto
