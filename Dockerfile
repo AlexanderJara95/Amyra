@@ -1,19 +1,16 @@
-FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build-env
 WORKDIR /app
-EXPOSE 80
 
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-WORKDIR /src
-COPY ["Amyra.csproj", "./"]
-RUN dotnet restore "./Amyra.csproj"
-COPY . .
-WORKDIR "/src/."
-RUN dotnet build "./Amyra.csproj" -c Release -o /app/build
+COPY *.csproj ./
+RUN dotnet restore
 
-FROM build AS publish
-RUN dotnet publish "./Amyra.csproj" -c Release -o /app/publish
+COPY . ./
+RUN dotnet publish -c Release -o out
 
-FROM base AS final
+FROM mcr.microsoft.com/dotnet/aspnet:7.0
 WORKDIR /app
-COPY --from=publish /app/publish .
-CMD ASPNETCORE_URLS=http://*:$PORT dotnet Amyra.dll
+COPY --from=build-env /app/out .
+
+ENV APP_NET_CORE Amyra.dll 
+
+CMD ASPNETCORE_URLS=http://*:$PORT dotnet $APP_NET_CORE
