@@ -10,7 +10,6 @@
             Dejenos sus sugerencias en este apartado para implmentar mejoras
             </p>
             <form asp-controller="Contacto" asp-action="Create" method="post">
-                    
                 <div class="form-group">
                     <label asp-for="Nombre" class="control-label"></label>
                     <input asp-for="Nombre" class="form-control" />
@@ -21,15 +20,14 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="Pregunta" class="control-label"> Pregunta o Comentario</label>
-                    <input asp-for="Pregunta" class="form-control-lg" />
+                    <input asp-for="Pregunta" class="form-control" style="height:150px" />
                 </div>
-
-                <div class="form-group text-center">
-                    <button type="submit" class="btn btn-primary btn-plomo">Cancelar</button>
+                <br>
+                <div class="form-group-vertical text-center">
+                	<br>
+                    <button type="submit" class="btn btn-primary btn-plomo redondo">Cancelar</button>
+                    <button type="submit" class="btn btn-primary btn-marron redondo">Enviar</button>
                 </div> 
-                <div class="form-group text-center">
-                    <button type="submit" class="btn btn-primary btn-marron">Enviar</button>
-                </div>
             </form>
             <h1>@ViewData["Message"]</h1>
             <div>

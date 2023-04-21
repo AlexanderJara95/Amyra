@@ -19,5 +19,8 @@ namespace Amyra.Models
 
         [Column("email")]
         public string? CorreoElectronico { get; set; }
+
+        [Column("Pregunta o Comentario")]
+        public string? Pregunta { get; set; }
     }
 }

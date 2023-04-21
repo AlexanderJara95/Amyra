@@ -21,17 +21,27 @@ body {
   margin-bottom: 60px;
 }
 
+header{
+background: #351D1B;
+
+}
 #marron {
   color:#964b00;
 } 
 
 .btn-marron {
   background-color: #EAB465;
-  color:#FFFFFF
+  color:#FFFFFF;
+  border-color: #EAB465;
 }
 
 .btn-plomo {
   background-color: #767676;
-  color:#FFFFFF
+  color:#FFFFFF;
+  border-color: #FFFFFF;
 }
 
+.redondo{
+  display: inline-block;
+  border-radius: 2em;
+}
