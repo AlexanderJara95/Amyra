@@ -35,6 +35,10 @@ namespace Amyra.Data.Migrations
                         .HasColumnType("text")
                         .HasColumnName("email");
 
+                    b.Property<string>("Mensaje")
+                        .HasColumnType("text")
+                        .HasColumnName("mensaje");
+
                     b.Property<string>("Nombre")
                         .HasColumnType("text")
                         .HasColumnName("name");
