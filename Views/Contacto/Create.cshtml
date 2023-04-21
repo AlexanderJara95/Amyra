@@ -6,7 +6,7 @@
     <h1 class="text-center mb-4">Contáctenos</h1>
     <div class="row justify-content-center">         
         <div class="col-md-6">
-            <p class="coltext">La opinion de nuestros Clientes siempre es importarte para nosotros.<br>
+            <p id="marron">La opinion de nuestros Clientes siempre es importarte para nosotros.<br>
             Dejenos sus sugerencias en este apartado para implmentar mejoras
             </p>
             <form asp-controller="Contacto" asp-action="Create" method="post">
@@ -19,6 +19,11 @@
                     <label asp-for="CorreoElectronico" class="control-label"></label>
                     <input asp-for="CorreoElectronico" class="form-control" />
                 </div>
+                <div class="form-group">
+                    <label asp-for="Pregunta" class="control-label"> Pregunta o Comentario</label>
+                    <input asp-for="Pregunta" class="form-control form-control-lg" />
+                </div>
+
                 <div class="form-group text-center">
                     <button type="submit" class="btn btn-primary">Enviar</button>
                 </div>
