@@ -33,18 +33,29 @@ background: #351D1B;
   background-color: #EAB465;
   color:#FFFFFF;
   border-color: #EAB465;
+  display: inline-block;
+  border-radius: 2em;
+  
 }
 
 .btn-plomo {
   background-color: #767676;
   color:#FFFFFF;
   border-color: #FFFFFF;
-}
-
-.redondo{
   display: inline-block;
   border-radius: 2em;
+  
 }
+
+.girar:hover{
+  -webkit-transform:scale(1.5);
+  -moz-transform:scale(1.5);
+  -o-transform:scale(1.5);
+  -ms-transform: scale(1.5);
+  transform: scale(1.5);
+}
+
+
 
 .fondo{
   background-color: #F9E9D1;
