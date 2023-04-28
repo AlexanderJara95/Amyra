@@ -70,6 +70,36 @@ namespace Amyra.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
+                // Propiedad para el nombre
+                [Required]
+                [Display(Name = "Nombre")]
+                public string Name { get; set; }
+
+                // Propiedad para el apellido
+                [Required]
+                [Display(Name = "Apellido")]
+                public string LastName { get; set; }
+
+                // Propiedad para el DNI
+                [Required]
+                [StringLength(8, MinimumLength = 8)]
+                [RegularExpression("^[0-9]*$", ErrorMessage = "El DNI debe contener solo números")]
+                [Display(Name = "DNI")]
+                public string DNI { get; set; }
+
+                //Propiedad para la Dirección
+                [Required]
+                [Display(Name = "Dirección")]
+                public string Address { get; set; }
+
+                //Propiedad para el número de celular
+                [Required]
+                [Display(Name = "Celular")]
+                [RegularExpression(@"^\d{9}$", ErrorMessage = "El número de celular debe contener 9 dígitos")]
+                public string CellPhone { get; set; }
+                
+                // Resto de las propiedades
+                // ...
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
