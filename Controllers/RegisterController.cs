@@ -1,17 +1,32 @@
+using Amyra.Models;
+using Microsoft.AspNetCore.Mvc;
+
 namespace Amyra.Controllers
-
-public class Task<IActionResult> Register(RegistroModel modelo)
 {
-    // Aquí puedes utilizar las propiedades del modelo recibido, como por ejemplo:
-    var nombre = modelo.Nombre;
-    var apellido = modelo.Apellido;
-    var dni = modelo.Dni;
-    var direccion = modelo.Direccion;
-    var celular = modelo.Celular;
-    var email = modelo.Email;
-    var password = modelo.Password;
+    public class RegisterController : Controller
+    {
+        // GET: /register/
+        public IActionResult Index()
+        {
+            return View();
+        }
 
-    // Código para guardar el registro en la base de datos, enviar un correo, etc.
+        // POST: /register/
+        [HttpPost]
+        public IActionResult Index(Register model)
+        {
+            if (ModelState.IsValid)
+            {
+                // TODO: Guardar los datos de registro en la base de datos.
+                return RedirectToAction("Success");
+            }
 
-    return RedirectToAction("Index", "Home");
-}
+            return View(model);
+        }
+
+        // GET: /register/success
+        public IActionResult Success()
+        {
+            return View();
+        }
+    }
