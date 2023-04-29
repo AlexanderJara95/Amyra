@@ -1,4 +1,4 @@
-namespace Amyra.Models
+/*namespace Amyra.Models
 {
     public class Register
     {
@@ -10,4 +10,4 @@ namespace Amyra.Models
         public string email { get; set; }
         public string contraseña { get; set;}
     }
-}
+}*/

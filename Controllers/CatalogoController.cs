@@ -10,26 +10,37 @@ using Amyra.Models;
 using Amyra.Data;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Identity;
+
 
 
 namespace Amyra.Controllers
 {
-
+    
     public class CatalogoController : Controller
     {
         private readonly ILogger<CatalogoController> _logger;
-        private readonly ApplicationDbContext _dbcontext;        
+        private readonly ApplicationDbContext _dbcontext;
+        private readonly UserManager<IdentityUser> _userManager;
+
+
         private readonly IDistributedCache _cache;
 
-        public CatalogoController(ILogger<CatalogoController> logger, ApplicationDbContext context, IDistributedCache cache)
+        public CatalogoController(ILogger<CatalogoController> logger,
+                ApplicationDbContext context,
+                IDistributedCache cache,
+                UserManager<IdentityUser> userManager)
         {
             _logger = logger;
             _dbcontext = context;
             _cache = cache;
+            _userManager = userManager;
         }
+
 
         public async Task<IActionResult> Index(string? searchString)
         {
+            
             var productos = from o in _dbcontext.DataProductos select o;
             //SELECT * FROM t_productos -> &
             if(!String.IsNullOrEmpty(searchString)){
@@ -37,8 +48,37 @@ namespace Amyra.Controllers
                 // & + WHERE name like '%ABC%'
             }
             productos = productos.Where(s => s.Status.Contains("Activo"));
-            Response.Headers["Cache-Control"] = "max-age=3600, public";
-            return View(productos.ToList());
+            
+            return View(await productos.ToListAsync());
+        }
+
+        public async Task<IActionResult> Details(int? id){
+            Producto objProduct = await _dbcontext.DataProductos.FindAsync(id);
+            if(objProduct == null){
+                return NotFound();
+            }
+            return View(objProduct);
+        }
+
+        public async Task<IActionResult> Add(int? id){
+            var userID = _userManager.GetUserName(User); //sesion
+            if(userID == null){
+                ViewData["Message"] = "Por favor debe loguearse antes de agregar un producto";
+                List<Producto> productos = new List<Producto>();
+                return  View("Index",productos);
+            }else{
+                var producto = await _dbcontext.DataProductos.FindAsync(id);
+
+                Proforma proforma = new Proforma();
+                proforma.Producto = producto;
+                proforma.Precio = producto.Precio; //precio del producto en ese momento
+                proforma.Cantidad = 1;
+                proforma.UserID = userID;
+                _dbcontext.Add(proforma);
+                await _dbcontext.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
