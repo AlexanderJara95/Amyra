@@ -1,4 +1,4 @@
-namespace Amyra.Controllers
+/*namespace Amyra.Controllers
 
 public class Task<IActionResult> Register(RegistroModel modelo)
 {
@@ -15,3 +15,4 @@ public class Task<IActionResult> Register(RegistroModel modelo)
 
     return RedirectToAction("Index", "Home");
 }
+*/
