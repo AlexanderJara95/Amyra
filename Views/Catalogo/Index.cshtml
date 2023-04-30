@@ -1,6 +1,6 @@
 @model IEnumerable<Amyra.Models.Producto>
 @{
-    ViewData["Title"] = "Catalogo";  
+    ViewData["Title"] = "Nuestros Chocolates";  
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -22,8 +22,8 @@
                 <div class="card-body">
                   <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
                   <p class="card-text">@Html.DisplayFor(modelItem => item.Precio)</p>
-                  <a class="btn btn-primary" asp-action="Add" asp-route-id="@item.Id">Add</a>
-                  <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">View</a>
+                  <a class="btn btn-marron" asp-action="Add" asp-route-id="@item.Id">Agregar</a>
+                  <a class="btn btn-plomo" asp-action="Details" asp-route-id="@item.Id">Ver</a>
                 </div>
               </div>
             </div>

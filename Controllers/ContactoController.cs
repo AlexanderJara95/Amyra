@@ -32,7 +32,7 @@ namespace Amyra.Controllers
         {
             _context.Add(objContacto);
             _context.SaveChanges();
-            ViewData["Message"] = "El contacto ya esta registrado";
+            ViewData["Message"] = "Comentario registrado, gracias.";
             return View();
         }
 
