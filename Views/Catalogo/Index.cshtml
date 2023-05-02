@@ -20,7 +20,7 @@
                   </div>
                 </div>
                 <div class="card-body fondo2-producto">
-                  <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
+                  <h5 class="center card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
                   <p class="card-text">S/ @Html.DisplayFor(modelItem => item.Precio)</p>
                   <a class="btn btn-primary" asp-action="Add" asp-route-id="@item.Id">Add</a>
                   <a class="btn btn-info right" asp-action="Details" asp-route-id="@item.Id">View</a>

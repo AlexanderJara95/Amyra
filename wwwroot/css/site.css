@@ -55,8 +55,6 @@ background: #351D1B;
   transform: scale(1.5);
 }
 
-
-
 .fondo{
   background-color: #F9E9D1;
   
@@ -77,9 +75,9 @@ background: #351D1B;
 .fondo2-producto {
        background-color: #f9e9d1;
        border-radius: 0px 0px 25px 25px;
-    
+       
 }
-
+    
 .bordes{
       border:none;
 }
@@ -91,4 +89,8 @@ background: #351D1B;
 .right{
   text-align: right;
   margin-right: 22px ;
+}
+
+.center{
+  text-align: center;
 }
