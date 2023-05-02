@@ -61,3 +61,25 @@ background: #351D1B;
   background-color: #F9E9D1;
   
   }
+
+  .card-container{
+    display: flex;
+    justify-content: center;
+    
+    }
+    
+.fondo1-producto{
+      background-color: #f9e9d1;
+      border-radius: 25px 25px 0px 0px;
+      
+  }
+    
+.fondo2-producto {
+       background-color: #f9e9d1;
+       border-radius: 0px 0px 25px 25px;
+    
+}
+
+.bordes{
+      border:none;
+}
