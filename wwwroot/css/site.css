@@ -83,3 +83,12 @@ background: #351D1B;
 .bordes{
       border:none;
 }
+
+.circulo{
+  border-radius: 5em;
+}
+
+.right{
+  text-align: right;
+  margin-right: 22px ;
+}
