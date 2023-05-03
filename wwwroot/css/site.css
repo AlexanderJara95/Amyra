@@ -35,20 +35,61 @@ background: #351D1B;
   background-color: #EAB465;
   color:#FFFFFF;
   border-color: #EAB465;
+  display: inline-block;
+  
 }
 
 .btn-plomo {
   background-color: #767676;
   color:#FFFFFF;
-  border-color: #FFFFFF;
+  display: inline-block;
+  
 }
 
-.redondo{
-  display: inline-block;
-  border-radius: 2em;
+.girar:hover{
+  -webkit-transform:scale(1.5);
+  -moz-transform:scale(1.5);
+  -o-transform:scale(1.5);
+  -ms-transform: scale(1.5);
+  transform: scale(1.5);
 }
 
 .fondo{
   background-color: #F9E9D1;
   
   }
+
+  .card-container{
+    display: flex;
+    justify-content: center;
+    
+    }
+    
+.fondo1-producto{
+      background-color: #f9e9d1;
+      border-radius: 25px 25px 0px 0px;
+      
+  }
+    
+.fondo2-producto {
+       background-color: #f9e9d1;
+       border-radius: 0px 0px 25px 25px;
+       
+}
+    
+.bordes{
+      border:none;
+}
+
+.circulo{
+  border-radius: 5em;
+}
+
+.right{
+  text-align: right;
+  margin-right: 22px ;
+}
+
+.center{
+  text-align: center;
+}
