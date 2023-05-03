@@ -1,14 +1,24 @@
 @model IEnumerable<Amyra.Models.Producto>
 @{
-    ViewData["Title"] = "Catalogo";  
+    ViewData["Title"] = "Nuestros Chocolates";  
 }
 
 <h1>@ViewData["Title"]</h1>
   <div class="container">
-    <h1>@ViewData["Message"]</h1>
+    <h2>@ViewData["Message"]</h2>
     <div class="row">
       <div class="col">
         <div id="products" class="mb-3">
+          <div class="row">
+            <div class="nav-item mt-3 mb-3 col-sm-12 col-md-6 col-lg-4">
+                <form asp-controller="Catalogo" asp-action="Index">
+                  <div class="input-group mb-3">
+                    <input type="text" name="searchString" class="form-control" placeholder="Buscar Producto" aria-label="Buscar Producto" aria-describedby="button-addon2">
+                    <button class="btn btn-outline-dark" type="submit" id="button-addon2">Buscar</button>
+                  </div>
+                </form>
+            </div>
+          </div>
           <div class="row">
             @foreach (var item in Model) {
             <div class="col-sm-4">
@@ -27,7 +37,12 @@
                   <a class="btn btn-primary circulo">+</a>
                   120
                   <a class="btn btn-info circulo" >-</a>
-
+                <!--<div class="card-body">
+                  <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
+                  <p class="card-text">@Html.DisplayFor(modelItem => item.Precio)</p>
+                  <a class="btn btn-marron" asp-action="Add" asp-route-id="@item.Id">Agregar</a>
+                  <a class="btn btn-plomo" asp-action="Details" asp-route-id="@item.Id">Ver</a>
+                 --> 
                 </div>
               </div>
             </div>

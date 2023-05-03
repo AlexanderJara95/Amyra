@@ -28,22 +28,21 @@ background: #351D1B;
 #marron {
   color:#964b00;
 } 
-
+.bg-principal{
+  background-color: #341f1c!important;
+}
 .btn-marron {
   background-color: #EAB465;
   color:#FFFFFF;
   border-color: #EAB465;
   display: inline-block;
-  border-radius: 2em;
   
 }
 
 .btn-plomo {
   background-color: #767676;
   color:#FFFFFF;
-  border-color: #FFFFFF;
   display: inline-block;
-  border-radius: 2em;
   
 }
 

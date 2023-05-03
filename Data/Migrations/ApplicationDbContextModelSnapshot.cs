@@ -35,6 +35,10 @@ namespace Amyra.Data.Migrations
                         .HasColumnType("text")
                         .HasColumnName("email");
 
+                    b.Property<string>("Mensaje")
+                        .HasColumnType("text")
+                        .HasColumnName("mensaje");
+
                     b.Property<string>("Nombre")
                         .HasColumnType("text")
                         .HasColumnName("name");
@@ -74,6 +78,38 @@ namespace Amyra.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("t_producto");
+                });
+
+            modelBuilder.Entity("Amyra.Models.Proforma", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("Precio")
+                        .HasColumnType("numeric");
+
+                    b.Property<int?>("ProductoId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserID")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductoId");
+
+                    b.ToTable("t_proforma");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -274,6 +310,15 @@ namespace Amyra.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Amyra.Models.Proforma", b =>
+                {
+                    b.HasOne("Amyra.Models.Producto", "Producto")
+                        .WithMany()
+                        .HasForeignKey("ProductoId");
+
+                    b.Navigation("Producto");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
