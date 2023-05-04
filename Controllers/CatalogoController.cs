@@ -57,6 +57,13 @@ namespace Amyra.Controllers
             if(objProduct == null){
                 return NotFound();
             }
+            var productos = from o in _dbcontext.DataProductos select o;
+            productos = productos.Where(s => s.Status.Contains("Activo"));
+            ViewBag.Productos = productos.ToList();
+            /*ViewBag.RelatedProducts = await _dbcontext.DataProductos
+            .Where(p => p.Categoria == objProduct.Categoria && p.Id != objProduct.Id)
+            .Take(4)
+            .ToListAsync();*/
             return View(objProduct);
         }
 
