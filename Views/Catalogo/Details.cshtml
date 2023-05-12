@@ -4,6 +4,7 @@
     ViewData["Title"] = "Detalles del Producto";
 }
 
+<!--
     <h1>Details</h1>
     <div class="container">
             <div class="col-sm-4">
@@ -23,3 +24,39 @@
               </div>
             </div>
     </div>
+-->
+    
+<div class="container pb-5">      
+  <div class="row">
+    <div class="col-md-6">
+      <img src="@Html.DisplayFor(model => model.ImageName)" alt="@Html.DisplayFor(model => model.ImageName)" class="img-fluid">
+    </div>
+    <div class="col-md-6 align-items-center mt-lg-5 mt-sm-0 ">
+      <h3>@Html.DisplayFor(model => model.Name)</h3>
+      <p>@Html.DisplayFor(model => model.Descripcion)</p>
+      <p>Precio: @Html.DisplayFor(model => model.Precio)</p>
+      <button class="btn btn-marron" asp-action="Add" asp-route-id="@Model.Id">Agregar al carrito</button>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <h4 class="mb-sm-2 mb-lg-5">Productos Relacionados</h4>
+    @foreach (var item in ViewBag.Productos) {
+    <div class="col-sm-3">
+      <div class="card mb-3 bordes text-center" style="background-color: #f4f4f4;border-radius: 25px;">
+        <div class="card-body">
+          <div class="card-img-actions card-container">
+            <img class="img-responsive" style="max-width: 100%;"
+                src="@item.ImageName" alt="@item.ImageName"  />
+          </div>
+        </div>
+        <div class="card-body">
+          <h6 class="center card-title">@item.Name</h6>
+          <p class="card-text">S/ @item.Precio</p>
+          <a class="btn btn-marron" asp-action="Add" asp-route-id="@item.Id">Agregar</a>
+          <a class="btn btn-plomo" asp-action="Details" asp-route-id="@item.Id">Ver</a>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+</div>
