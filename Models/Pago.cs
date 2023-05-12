@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace appfunko.Models
+namespace Amyra.Models
 {
     [Table("t_pago")]
     public class Pago
