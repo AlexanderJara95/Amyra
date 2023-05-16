@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Amyra.Data;
+using Amyra.Service;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
 using StackExchange.Redis;
 
@@ -20,6 +21,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
+//Registro mi logica customizada y reuzable
+builder.Services.AddScoped<ProductoService, ProductoService>();
 
 builder.Services.AddStackExchangeRedisCache(options =>
     {
