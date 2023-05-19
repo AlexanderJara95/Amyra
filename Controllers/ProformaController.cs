@@ -63,5 +63,18 @@ namespace Amyra.Controllers
         {
             return View("Error!");
         }
+
+        public class Producto{
+            public String Name {get; set;}
+            public String ImageUrl {get; set;}
+        }
+
+        public class CarritoController : Controller{
+
+            public IActionResult LimpiarCarrito(){
+                return RedirectToAction("Index");
+            }
+        }
+
     }
 }
