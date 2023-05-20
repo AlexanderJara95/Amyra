@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Amyra.Models;
 using Amyra.Service;
 
-namespace appfunko.Controllers.Rest
+namespace Amyra.Controllers.Rest
 {
     [ApiController]
     [Route("api/producto")]
