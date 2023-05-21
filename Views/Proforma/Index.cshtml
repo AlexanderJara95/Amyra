@@ -10,7 +10,7 @@
 
 <h1 style="text-align: center;">@ViewData["Title"]</h1>
 
-<table class="table" style="border: 1px solid #ccc; border-spacing: 0; margin-bottom: 20px;">
+<table class="table" style="border: 1px solid #ccc; border-spacing: 0; margin-bottom: 20px; background-color: #ac8b65;">
     <thead>
         <tr>
             <th>Producto</th>
@@ -22,7 +22,7 @@
     <tbody>
         @foreach (Proforma item in Model.elementosCarrito)
         {
-            <tr>
+            <tr style="background-color: @(item.Id % 2 == 0 ? "#ffdeb9" : "#ffdeb9");">
                 <td>
                     <div class="product-item">
                        <img src="@item.Producto.ImageName" alt="@item.Producto.Name" class="product-image" /> 
@@ -32,10 +32,16 @@
                     </div>
                 </td>
                 <td>@item.Cantidad</td>
-                <td>@item.Precio</td>
+                <td class="price-cell">@item.Precio.ToString("N2")</td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Agregar</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                    <form asp-action="Agregar" asp-controller="Carrito" method="post">
+                        <input type="hidden" name="productoId"value="@item.Producto.Id"/>
+                        <button type="submit" class="btn btn-custom">Agregar</button>
+                    </form>    
+                    <form asp-action="Eliminar" asp-controller="Carrito" method="post">
+                        <input type="hidden" name="proformaId" valu|e="@item.Id" />
+                        <button type="submit" class="btn btn-custom2">Eliminar</button>
+                    </form>
                 </td>
             </tr>
         }
@@ -44,14 +50,14 @@
 
 <div class="d-flex justify-content-center align-items-center flex-column">
     <div class="mb-3">
-        <a class="btn btn-custom" asp-controller="Pago" asp-action="Create" asp-route-monto="@montoTotal">Pagar Total</a>
+        <a class="btn btn-custom" asp-controller="Pago" asp-action="Create" asp-route-monto="@montoTotal" style="font-size: 22px;">Pagar Total</a>
     </div>
     <div>
         <a class="btn btn-custom2" asp-controller="Carrito" asp-action="LimpiarCarrito">Limpiar Carrito</a> 
     </div>
 </div>
 
-<p class="text-center">Total S/. @montoTotal</p>
+<p class="text-center">Total S/. @montoTotal.ToString("N2")</p> 
 
 <style>
     .product-item {

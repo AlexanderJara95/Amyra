@@ -76,5 +76,11 @@ namespace Amyra.Controllers
             }
         }
 
+        [HttpPost]
+        public IActionResult Eliminar(int proformaId){
+        return RedirectToAction("Index");
+        }
+
+
     }
 }
