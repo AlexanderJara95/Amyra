@@ -4,6 +4,7 @@ using Amyra.Data;
 using Amyra.Service;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
 using StackExchange.Redis;
+using Amyra.Integration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,7 @@ builder.Services.AddControllersWithViews();
 
 //Registro mi logica customizada y reuzable
 builder.Services.AddScoped<ProductoService, ProductoService>();
+builder.Services.AddScoped<CurrencyExchangeApiIntegration, CurrencyExchangeApiIntegration>();
 
 builder.Services.AddStackExchangeRedisCache(options =>
     {
