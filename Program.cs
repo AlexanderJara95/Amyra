@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Amyra.Data;
+using Amyra.Service;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
 using StackExchange.Redis;
+using Amyra.Integration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +14,17 @@ var connectionString = builder.Configuration.GetConnectionString("PostgreSQLConn
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     //options.UseSqlite(connectionString));
     options.UseNpgsql(connectionString));
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddControllersWithViews();
+
+//Registro mi logica customizada y reuzable
+builder.Services.AddScoped<ProductoService, ProductoService>();
+builder.Services.AddScoped<CurrencyExchangeApiIntegration, CurrencyExchangeApiIntegration>();
 
 builder.Services.AddStackExchangeRedisCache(options =>
     {
@@ -20,9 +32,7 @@ builder.Services.AddStackExchangeRedisCache(options =>
         options.Configuration = configuration["ConnectionString"];
     });
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
-builder.Services.AddControllersWithViews();
+
 
 var app = builder.Build();
 
@@ -43,6 +53,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
