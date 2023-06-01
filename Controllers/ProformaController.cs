@@ -69,18 +69,50 @@ namespace Amyra.Controllers
             public String ImageUrl {get; set;}
         }
 
-        public class CarritoController : Controller{
+        [HttpPost]
+        public async Task<IActionResult> Delete(int? Id){
+                if (Id == null){
+                    return NotFound();
+                }
 
-            public IActionResult LimpiarCarrito(){
-                return RedirectToAction("Index");
+                var proforma = await _dbcontext.DataProformas.FindAsync(Id);
+                if(proforma == null){
+                    return NotFound();
+                }
+                _dbcontext.DataProformas.Remove(proforma);
+                await _dbcontext.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
-        }
 
         [HttpPost]
-        public IActionResult Eliminar(int proformaId){
-        return RedirectToAction("Index");
+        public async Task<IActionResult> Agregar(int productoId){
+            // Obtener el producto según el ID
+            var producto = await _dbcontext.DataProductos.FindAsync(productoId);
+
+            if (producto == null){
+                return NotFound();
+            }
+
+            // Crear un nuevo objeto Proforma y asignar los valores
+            var proforma = new Proforma{
+                Producto = producto,
+                Cantidad = 1,
+                Precio = producto.Precio,
+                Status = "PENDIENTE",
+                UserID = _userManager.GetUserName(User)
+            };
+
+            // Agregar la proforma al contexto de la base de datos
+            _dbcontext.DataProformas.Add(proforma);
+            await _dbcontext.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
 
+
+
+
+        
 
     }
 }
