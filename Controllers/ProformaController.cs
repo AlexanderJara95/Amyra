@@ -109,6 +109,43 @@ namespace Amyra.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpPost]
+        public async Task<IActionResult> LimpiarCarrito(){
+            var userIDSession = _userManager.GetUserName(User);
+
+            // Obtener todas las proformas del usuario actual
+            var proformas = await _dbcontext.DataProformas
+                .Where(p => p.UserID.Equals(userIDSession))
+                .ToListAsync();
+
+            // Eliminar las proformas del contexto de la base de datos
+            _dbcontext.DataProformas.RemoveRange(proformas);
+            await _dbcontext.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult PagarTotal(){
+            // Lógica para procesar el pago y generar el resultado de la transacción
+            // Crear un modelo para mostrar el resultado de la transacción
+            var model = new PagoTotalViewModel
+            {
+                TransaccionExitosa = true, // Cambia esto según la lógica de tu aplicación
+                Mensaje = "La transacción se realizó exitosamente." // Cambia esto según la lógica de tu aplicación
+            };
+
+            return View("PagarTotal", model);
+        }
+
+        public class PagoTotalViewModel{
+            public bool TransaccionExitosa { get; set; }
+            public string Mensaje { get; set; }
+        }
+
+
+
+
+
 
 
 
