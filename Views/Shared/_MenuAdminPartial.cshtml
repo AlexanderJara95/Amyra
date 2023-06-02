@@ -9,13 +9,24 @@
     IdentityUser myidentity  = await Task.Run(() => UserManager.GetUserAsync(User));
     var roles = await Task.Run(() => UserManager.GetRolesAsync(myidentity));
 
-    @if(roles.Contains("admin") ){    
-        <li class="nav-item">
-            <a class="nav-link text-light bi bi-cart" asp-area="" asp-controller="Pedido" asp-action="Index">Pedidos</a>
-        </li>     
-        <li class="nav-item">
-            <a class="nav-link text-light bi bi-cart" asp-area="" asp-controller="Producto" asp-action="Index"></a>
-        </li> 
+    @if(roles.Contains("admin") ){   
+        <div class="dropdown">
+            <button class="btn btn-marron dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Administrar
+            </button>
+            <ul class="dropdown-menu">
+                <li>
+                    <a class="dropdown-item bi bi-list-check" asp-area="" asp-controller="Pedido" asp-action="Index"> Pedidos</a>
+                </li>
+                <li>
+                    <a class="dropdown-item bi bi-receipt" asp-area="" asp-controller="Producto" asp-action="Index"> Productos</a>
+                </li>
+                
+                <li>
+                    <a class="dropdown-item bi bi-currency-exchange" asp-area="" asp-controller="TipoCambio" asp-action="Index"> Cambio</a>
+                </li>   
+            </ul>
+        </div>
     }
 
 }

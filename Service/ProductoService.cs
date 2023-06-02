@@ -20,17 +20,51 @@ namespace Amyra.Service
             _context = context;
         }
 
-        public async Task<Producto> CreateOrUpdate(Producto p){
+        /*public async Task<Producto> CreateOrUpdate(Producto p){
             //Regla de Negocio 1
             if(p.Precio < 1){
                 throw new SystemException("No se puede ingresar datos con precio menor 1 sol");
             }
             //Regla de Negocio 2
-
+            
             _context.Add(p);
             await _context.SaveChangesAsync();
             return p;
+        }*/
+
+        public async Task<Producto> CreateOrUpdate(Producto p)
+        {
+            // Regla de Negocio 1
+            if (p.Precio < 1)
+            {
+                throw new SystemException("No se puede ingresar datos con precio menor a 1 sol");
+            }
+
+            // Regla de Negocio 2
+            var existingProduct = await _context.DataProductos.FindAsync(p.Id);
+
+            if (existingProduct != null)
+            {
+                // El producto ya existe, actualizarlo
+                existingProduct.Name = p.Name;
+                existingProduct.Descripcion = p.Descripcion;
+                existingProduct.Precio = p.Precio;
+                existingProduct.PorcentajeDescuento = p.PorcentajeDescuento;
+                existingProduct.ImageName = p.ImageName;
+                existingProduct.Status = p.Status;
+            }
+            else
+            {
+                // El producto no existe, agregarlo
+                _context.DataProductos.Add(p);
+            }
+
+            await _context.SaveChangesAsync();
+            return p;
         }
+
+
+
 
         public async Task<List<Producto>?> GetAll(){
             if(_context.DataProductos == null )

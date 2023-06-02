@@ -1,84 +1,140 @@
 @model Amyra.Models.Pago
 
 @{
-
     ViewData["Title"] = "Pago";
-
 }
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .container {
+        margin-top: 50px;
+        padding-bottom: 50px;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .form-group {
+        margin-bottom: 30px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    .col-sm-2 {
+        width: 16.67%;
+    }
+
+    .form-control {
+        border-radius: 10px;
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    .btn-primary {
+        padding: 12px 30px;
+        font-size: 16px;
+        border-radius: 10px;
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .btn-primary:hover {
+        background-color: #0069d9;
+        border-color: #0062cc;
+    }
+
+    .error-message {
+        color: red;
+        margin-top: 5px;
+    }
+
+    .image-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 20px;
+    }
+
+    .image-container img {
+        width: 100%;
+        max-width: 400px;
+        border-radius: 10px;
+    }
+</style>
 
 <h1>@ViewData["Title"]</h1>
 
-
-
-
-    <div class="container">
-        <div class="row">
-          <div class="col-sm-10 mt-5">
-           <form asp-controller="Pago" asp-action="Pagar">
-              <div class="form-group row">
-                <input type="hidden" asp-for="UserID"/>
-                <div class="col-sm-2">
-
-                  <label asp-for="NombreTarjeta" class="control-label"></label>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+            <form asp-controller="Pago" asp-action="Pagar">
+                <div class="form-group row">
+                    <input type="hidden" asp-for="UserID" />
+                    <div class="col-sm-2">
+                        <label asp-for="NombreTarjeta" class="control-label"></label>
+                    </div>
+                    <div class="col-sm-10">
+                        <input asp-for="NombreTarjeta" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-2">
+                        <label asp-for="NumeroTarjeta" class="control-label"></label>
+                    </div>
+                    <div class="col-sm-10">
+                        <input asp-for="NumeroTarjeta" class="form-control" data-inputmask="'mask': '9999-9999-9999-9999'" />
+                    </div>
                 </div>
 
-                <div class="col-sm-2">
-                  <input asp-for="NombreTarjeta" class="form-control" />
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <div class="col-sm-2">
-                  <label asp-for="NumeroTarjeta" class="control-label"></label>
-                </div>
-
-                <div class="col-sm-2">
-                  <input asp-for="NumeroTarjeta" class="form-control" data-inputmask="'mask': '9999-9999-9999-9999'" />
-                </div>
-              </div>              
-
-              <div class="form-group row">
-                <div class="col-sm-2">
-                  <label asp-for="DueDateYYMM" class="control-label"></label>
+                <div class="form-group row">
+                    <div class="col-sm-2">
+                        <label asp-for="DueDateYYMM" class="control-label"></label>
+                    </div>
+                    <div class="col-sm-10">
+                        <input asp-for="DueDateYYMM" class="form-control" data-inputmask="'mask': '99/99', 'placeholder': 'yy/mm'" />
+                    </div>
                 </div>
 
-                <div class="col-sm-2">
-                  <input asp-for="DueDateYYMM" class="form-control" data-inputmask="'mask': '99/99', 'placeholder': 'yy/mm'" />
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <div class="col-sm-2">
-                  <label asp-for="Cvv" class="control-label"></label>
-                </div>
-
-                <div class="col-sm-2">
-                  <input asp-for="Cvv" class="form-control" data-inputmask="'mask': '999', 'placeholder': '999'" />
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <div class="col-sm-2">
-                  <label asp-for="MontoTotal" class="control-label"></label>
+                <div class="form-group row">
+                    <div class="col-sm-2">
+                        <label asp-for="Cvv" class="control-label"></label>
+                    </div>
+                    <div class="col-sm-10">
+                        <input asp-for="Cvv" class="form-control" data-inputmask="'mask': '999', 'placeholder': '999'" />
+                    </div>
                 </div>
 
-                <div class="col-sm-2">
-                  <input asp-for="MontoTotal" class="form-control" data-thousands="," data-decimal="." />
+                <div class="form-group row">
+                    <div class="col-sm-2">
+                        <label asp-for="MontoTotal" class="control-label"></label>
+                    </div>
+                    <div class="col-sm-10">
+                        <input asp-for="MontoTotal" class="form-control" data-thousands="," data-decimal="." />
+                    </div>
                 </div>
-              </div>  
 
-              <div class="form-group row">
-                <div class="col-sm-2"></div>
-                <div class="col-sm-2">
-                  <button type="submit" class="btn btn-primary">Pagar</button> 
+                <div class="form-group row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-10">
+                        <button type="submit" class="btn btn-primary">Pagar</button>
+                    </div>
                 </div>
-              </div>
             </form>
 
-            <h1>@ViewData["Message"]</h1>
-
-          </div>
-
+            <h1 class="error-message">@ViewData["Message"]</h1>
         </div>
 
+        <div class="col-sm-4">
+            <div class="image-container">
+                <img src="https://peru21.pe/resizer/QZqTWIO312BJf2_PIjgcrcOYKdg=/1200x800/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/LWIWWX4J5VBLROBEWG5524P2XQ.jpeg" alt="Imagen de ejemplo">
+            </div>
+        </div>
     </div>
+</div>
