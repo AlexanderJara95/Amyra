@@ -6,17 +6,23 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <li class="nav-item">
+    
+    <li class="nav-item">  
+        <a  class="nav-link text-light fw-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hola @User.Identity?.Name!</a>
+    </li>
+    <li class="mx-1 nav-item">
         <form asp-controller="Proforma" asp-action="Index">
-                <input type="submit" class="btn btn-plomo" value="Carrito" />
+            <button type="submit" class="btn btn-plomo">
+                <i class="bi bi-cart"></i>
+            </button>    
         </form>
     </li>
-    <li class="nav-item">  
-        <a  class="nav-link text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hola @User.Identity?.Name!</a>
-    </li>
-    <li class="nav-item">
+    <partial name="_MenuAdminPartial" />   
+    <li class="mx-1 nav-item">
         <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-light">Cerrar Sesión</button>
+            <button  type="submit" class="btn btn-danger">
+                <i class="bi bi-box-arrow-in-right"></i>
+            </button>
         </form>
     </li>
 }
