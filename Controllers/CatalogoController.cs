@@ -47,7 +47,9 @@ namespace Amyra.Controllers
             var productos = from o in _dbcontext.DataProductos select o;
             //SELECT * FROM t_productos -> &
             if(!String.IsNullOrEmpty(searchString)){
-                productos = productos.Where(s => s.Name.Contains(searchString)); //Algebra de bool
+                //productos = productos.Where(s => s.Name.Contains(searchString)); //Algebra de bool
+                searchString = searchString.ToLower();
+                productos = productos.Where(s => s.Name.ToLower().Contains(searchString));
                 // & + WHERE name like '%ABC%'
             }
             productos = productos.Where(s => s.Status.Contains("Activo"));
