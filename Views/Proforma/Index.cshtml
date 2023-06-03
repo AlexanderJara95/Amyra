@@ -51,7 +51,14 @@
 
 <div class="d-flex justify-content-center align-items-center flex-column">
     <div class="mb-3">
-        <a class="btn btn-custom" asp-controller="Pago" asp-action="Create" asp-route-monto="@montoTotal" style="font-size: 22px;">Pagar Total</a>
+        @if (Model.montoTotal != 0)
+        {
+            <a class="btn btn-custom" asp-controller="Pago" asp-action="Create" asp-route-monto="@montoTotal" style="font-size: 22px;">Pagar Total</a>
+        }
+        else
+        {
+            <a class="btn btn-custom d-none" asp-controller="Pago" asp-action="Create" asp-route-monto="@montoTotal" style="font-size: 22px;">Pagar Total</a>
+        }
     </div>
     <div>
         <form asp-controller="Proforma" asp-action="LimpiarCarrito" method="post">

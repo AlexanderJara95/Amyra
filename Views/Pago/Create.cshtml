@@ -78,7 +78,7 @@
                 <div class="form-group row">
                     <input type="hidden" asp-for="UserID" />
                     <div class="col-sm-2">
-                        <label asp-for="NombreTarjeta" class="control-label"></label>
+                        Nombre de Tarjeta
                     </div>
                     <div class="col-sm-10">
                         <input asp-for="NombreTarjeta" class="form-control" />
@@ -86,7 +86,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-2">
-                        <label asp-for="NumeroTarjeta" class="control-label"></label>
+                        <label class="control-label">Número de Tarjeta</label>
                     </div>
                     <div class="col-sm-10">
                         <input asp-for="NumeroTarjeta" class="form-control" data-inputmask="'mask': '9999-9999-9999-9999'" />
@@ -95,7 +95,7 @@
 
                 <div class="form-group row">
                     <div class="col-sm-2">
-                        <label asp-for="DueDateYYMM" class="control-label"></label>
+                        <label class="control-label">Fecha de Expiración</label>
                     </div>
                     <div class="col-sm-10">
                         <input asp-for="DueDateYYMM" class="form-control" data-inputmask="'mask': '99/99', 'placeholder': 'yy/mm'" />
@@ -113,17 +113,17 @@
 
                 <div class="form-group row">
                     <div class="col-sm-2">
-                        <label asp-for="MontoTotal" class="control-label"></label>
+                        <label class="control-label">Monto Total</label>
                     </div>
                     <div class="col-sm-10">
-                        <input asp-for="MontoTotal" class="form-control" data-thousands="," data-decimal="." />
+                        <input asp-for="MontoTotal" class="form-control" data-thousands="," data-decimal="." readonly/>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <div class="col-sm-2"></div>
                     <div class="col-sm-10">
-                        <button type="submit" class="btn btn-primary">Pagar</button>
+                        <button type="submit" class="btn btn-lg btn-marron">Pagar</button>
                     </div>
                 </div>
             </form>
