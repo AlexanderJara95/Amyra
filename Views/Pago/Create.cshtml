@@ -16,7 +16,7 @@
     }
 
     .form-group {
-        margin-bottom: 30px;
+        margin-bottom: 15px;
     }
 
     label {
@@ -73,7 +73,7 @@
             <form asp-controller="Pago" asp-action="Pagar">
                 <div class="form-group row">
                     <input type="hidden" asp-for="UserID" />
-                    <div class="col-sm-2">                        
+                    <div class="col-sm-6 pb-2">                        
                         <label class="control-label">Nombre de Tarjeta</label>
                     </div>
                     <div class="col-sm-10">
@@ -81,7 +81,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-sm-2">
+                    <div class="col-sm-6 pb-2">
                         <label class="control-label">Número de Tarjeta</label>
                     </div>
                     <div class="col-sm-10">
@@ -90,7 +90,7 @@
                 </div>
 
                 <div class="form-group row">
-                    <div class="col-sm-2">
+                    <div class="col-sm-6 pb-2">
                         <label class="control-label">Fecha de Expiración</label>
                     </div>
                     <div class="col-sm-10">
@@ -99,7 +99,7 @@
                 </div>
 
                 <div class="form-group row">
-                    <div class="col-sm-2">
+                    <div class="col-sm-6 pb-2">
                         <label asp-for="Cvv" class="control-label"></label>
                     </div>
                     <div class="col-sm-10">
@@ -108,7 +108,7 @@
                 </div>
 
                 <div class="form-group row">
-                    <div class="col-sm-2">
+                    <div class="col-sm-6 pb-2">
                         <label class="control-label">Monto Total</label>
                     </div>
                     <div class="col-sm-10">
