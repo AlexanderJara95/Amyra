@@ -10,7 +10,7 @@
 
 <h1 style="text-align: center;">@ViewData["Title"]</h1>
 
-<table class="table" style="border: 1px solid #ccc; border-spacing: 0; margin-bottom: 20px; background-color: #ac8b65;">
+<table class="table rounded-3" style="border-spacing: 0; margin-bottom: 20px; background-color: #ac8b65;">
     <thead>
         <tr>
             <th>Producto</th>
@@ -47,6 +47,9 @@
             </tr>
         }
     </tbody>
+</table>
+<table>
+    <button class="btn btn-success" onclick="getCurrentLocation()">Obtener ubicación actual <i class="bi bi-geo-alt"></i></button>
 </table>
 
 <div class="d-flex justify-content-center align-items-center flex-column">
@@ -98,3 +101,59 @@
         color: #000000;
     }
 </style>
+<script>
+    function getCurrentLocation() {
+    return new Promise((resolve, reject) => {
+        if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            position => {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            resolve({ latitude, longitude });
+            },
+            error => {
+            reject(error);
+            }
+        );
+        } else {
+        reject("Geolocalización no es soportada por este navegador.");
+        }
+    });
+    }
+
+    function sendLocationToServer(location) {
+    return fetch("/api/geo/location", {
+        method: "POST",
+        headers: {
+        "Content-Type": "application/json"
+        },
+        body: JSON.stringify(location)
+    });
+    }
+
+    function updateInputValue(data) {
+    const input = document.getElementById("ubicacion-input");
+    input.value = `Latitud: ${data.latitude}, Longitud: ${data.longitude}`;
+    }
+
+    // Obtener la ubicación actual y enviarla al servidor
+    getCurrentLocation()
+    .then(location => {
+        return sendLocationToServer(location);
+    })
+    .then(response => {
+        if (response.ok) {
+        return response.json(); // Convertir la respuesta en formato JSON
+        } else {
+        throw new Error("Error al enviar la ubicación al servidor.");
+        }
+    })
+    .then(data => {
+        // Establecer el valor del input con la ubicación devuelta
+        updateInputValue(data);
+    })
+    .catch(error => {
+        console.log("Error al obtener o enviar la ubicación:", error);
+    });
+
+</script>
