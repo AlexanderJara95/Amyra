@@ -10,7 +10,7 @@
     <a asp-action="Create">Crear Nuevo</a>
 </p>
 <table class="table">
-    <thead>
+    <thead style="background-color: #ac8b65;">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
@@ -33,7 +33,7 @@
             <th></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody style="background-color: #ffdeb9">
 @foreach (var item in Model) {
         <tr>
             <td>
