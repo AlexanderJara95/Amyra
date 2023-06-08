@@ -7,10 +7,12 @@ namespace Amyra.DTO
 {
     public class LocationDTO
     {
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
-        public string Road { get; set; }
-        public string City { get; set; }
+        public string Latitude { get; set; }
+        public string Longitude { get; set; }
+        public string Direccion { get; set; }
+        public string Ciudad { get; set; }
+        public string Departamento { get; set; }
+        public string Pais { get; set; }
 
     }
 

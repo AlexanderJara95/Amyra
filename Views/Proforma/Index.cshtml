@@ -48,16 +48,6 @@
         }
     </tbody>
 </table>
-<table>
-    <!--<button class="btn btn-success" asp-controller="LocalizacionController" asp-action="ReceiveLocation">Obtener ubicación actual <i class="bi bi-geo-alt"></i></button>-->
-    <form method="post" asp-action="ReceiveLocation" asp-controller="Localizacion">
-        <input id="latitude" type="text" name="latitude" value="">
-        <input id="longitude" type="text" name="longitude" value="">
-        <button class="btn btn-success" type="submit">Obtener ubicación actual <i class="bi bi-geo-alt"></i></button>
-    </form>
-
-    <input type="text" id="valorRetornado" readonly>
-</table>
 
 <div class="d-flex justify-content-center align-items-center flex-column">
     <div class="mb-3">
