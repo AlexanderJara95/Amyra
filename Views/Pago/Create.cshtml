@@ -9,18 +9,14 @@
         background-color: #f8f9fa;
     }
 
-    .container {
-        margin-top: 50px;
-        padding-bottom: 50px;
-    }
-
+    
     h1 {
         text-align: center;
         margin-bottom: 40px;
     }
 
     .form-group {
-        margin-bottom: 30px;
+        margin-bottom: 15px;
     }
 
     label {
@@ -77,16 +73,16 @@
             <form asp-controller="Pago" asp-action="Pagar">
                 <div class="form-group row">
                     <input type="hidden" asp-for="UserID" />
-                    <div class="col-sm-2">
-                        <label asp-for="NombreTarjeta" class="control-label"></label>
+                    <div class="col-sm-6 pb-2">                        
+                        <label class="control-label">Nombre de Tarjeta</label>
                     </div>
                     <div class="col-sm-10">
                         <input asp-for="NombreTarjeta" class="form-control" />
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-sm-2">
-                        <label asp-for="NumeroTarjeta" class="control-label"></label>
+                    <div class="col-sm-6 pb-2">
+                        <label class="control-label">Número de Tarjeta</label>
                     </div>
                     <div class="col-sm-10">
                         <input asp-for="NumeroTarjeta" class="form-control" data-inputmask="'mask': '9999-9999-9999-9999'" />
@@ -94,8 +90,8 @@
                 </div>
 
                 <div class="form-group row">
-                    <div class="col-sm-2">
-                        <label asp-for="DueDateYYMM" class="control-label"></label>
+                    <div class="col-sm-6 pb-2">
+                        <label class="control-label">Fecha de Expiración</label>
                     </div>
                     <div class="col-sm-10">
                         <input asp-for="DueDateYYMM" class="form-control" data-inputmask="'mask': '99/99', 'placeholder': 'yy/mm'" />
@@ -103,7 +99,7 @@
                 </div>
 
                 <div class="form-group row">
-                    <div class="col-sm-2">
+                    <div class="col-sm-6 pb-2">
                         <label asp-for="Cvv" class="control-label"></label>
                     </div>
                     <div class="col-sm-10">
@@ -112,18 +108,18 @@
                 </div>
 
                 <div class="form-group row">
-                    <div class="col-sm-2">
-                        <label asp-for="MontoTotal" class="control-label"></label>
+                    <div class="col-sm-6 pb-2">
+                        <label class="control-label">Monto Total</label>
                     </div>
                     <div class="col-sm-10">
-                        <input asp-for="MontoTotal" class="form-control" data-thousands="," data-decimal="." />
+                        <input asp-for="MontoTotal" class="form-control" data-thousands="," data-decimal="." readonly/>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <div class="col-sm-2"></div>
                     <div class="col-sm-10">
-                        <button type="submit" class="btn btn-primary">Pagar</button>
+                        <button type="submit" class="btn btn-lg btn-marron">Pagar</button>
                     </div>
                 </div>
             </form>

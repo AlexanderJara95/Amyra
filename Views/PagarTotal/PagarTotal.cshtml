@@ -1,0 +1,13 @@
+@model PagoTotalViewModel
+
+<h2>Resultado de la transacción</h2>
+
+@if (Model.TransaccionExitosa)
+{
+    <p>@Model.Mensaje</p>
+    <p>¡Gracias por tu compra!</p>
+}
+else
+{
+    <p>Ha ocurrido un error al procesar la transacción. Por favor, inténtalo nuevamente más tarde.</p>
+}

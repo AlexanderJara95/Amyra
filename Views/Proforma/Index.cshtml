@@ -10,7 +10,7 @@
 
 <h1 style="text-align: center;">@ViewData["Title"]</h1>
 
-<table class="table" style="border: 1px solid #ccc; border-spacing: 0; margin-bottom: 20px;">
+<table class="table rounded-3" style="border-spacing: 0; margin-bottom: 20px; background-color: #ac8b65;">
     <thead>
         <tr>
             <th>Producto</th>
@@ -20,38 +20,65 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (Proforma item in Model.elementosCarrito)
-        {
-            <tr>
+        @foreach (Proforma item in Model.elementosCarrito){
+            <tr style="background-color: @(item.Id % 2 == 0 ? "#ffdeb9" : "#ffdeb9");">
                 <td>
                     <div class="product-item">
-                       <img src="@item.Producto.ImageName" alt="@item.Producto.Name" class="product-image" /> 
+                       <img src="@item.Producto.ImageName" alt="@item.Producto.Name" class="product-image" width="100" height="100" /> 
                         <div class="product-details">
                             <h5>@item.Producto.Name</h5>
                         </div>
                     </div>
                 </td>
                 <td>@item.Cantidad</td>
-                <td>@item.Precio</td>
+                <td class="price-cell">@item.Precio.ToString("N2")</td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Agregar</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                    <!-- Agregar -->
+                    <form asp-action="Agregar" asp-controller="Proforma" method="post">
+                        <input type="hidden" name="productoId"value="@item.Producto.Id"/>
+                        <button type="submit" class="btn btn-custom">Agregar</button>
+                    </form>
+                    <!-- Eliminar -->    
+                    <form asp-action="Delete" asp-controller="Proforma" method="post">
+                        <input type="hidden" name="Id" value="@item.Id" />
+                        <button type="submit" class="btn btn-custom2">Eliminar</button>
+                    </form>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+<table>
+    <!--<button class="btn btn-success" asp-controller="LocalizacionController" asp-action="ReceiveLocation">Obtener ubicación actual <i class="bi bi-geo-alt"></i></button>-->
+    <form method="post" asp-action="ReceiveLocation" asp-controller="Localizacion">
+        <input id="latitude" type="text" name="latitude" value="">
+        <input id="longitude" type="text" name="longitude" value="">
+        <button class="btn btn-success" type="submit">Obtener ubicación actual <i class="bi bi-geo-alt"></i></button>
+    </form>
+
+    <input type="text" id="valorRetornado" readonly>
+</table>
 
 <div class="d-flex justify-content-center align-items-center flex-column">
     <div class="mb-3">
-        <a class="btn btn-custom" asp-controller="Pago" asp-action="Create" asp-route-monto="@montoTotal">Pagar Total</a>
+        @if (Model.montoTotal != 0)
+        {
+            <a class="btn btn-custom" asp-controller="Pago" asp-action="Create" asp-route-monto="@montoTotal" style="font-size: 22px;">Pagar Total</a>
+        }
+        else
+        {
+            <a class="btn btn-custom d-none" asp-controller="Pago" asp-action="Create" asp-route-monto="@montoTotal" style="font-size: 22px;">Pagar Total</a>
+        }
     </div>
     <div>
-        <a class="btn btn-custom2" asp-controller="Carrito" asp-action="LimpiarCarrito">Limpiar Carrito</a> 
+        <form asp-controller="Proforma" asp-action="LimpiarCarrito" method="post">
+            <button type="submit" class="btn btn-custom2">Limpiar Carrito</button>
+        </form> 
     </div>
 </div>
 
-<p class="text-center">Total S/. @montoTotal</p>
+<p class="text-center">Total S/. @montoTotal.ToString("N2")</p> 
+
 
 <style>
     .product-item {
@@ -81,3 +108,63 @@
         color: #000000;
     }
 </style>
+<script>
+    window.onload = function() {
+    getCurrentLocation();
+    };
+    function getCurrentLocation() {
+        return new Promise((resolve, reject) => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    position => {
+                        var latitude = document.getElementById("latitude");
+                        var longitude = document.getElementById("longitude");
+                        // Actualiza los valores de los campos ocultos
+                        latitude.value = position.coords.latitude;
+                        longitude.value = position.coords.longitude;
+                        console.log(latitude,longitude);
+                        resolve({ latitude, longitude});
+                    },
+                    error => {
+                        reject(error);
+                    }
+                );
+            } else {
+                reject("Geolocalización no es soportada por este navegador.");
+            }
+        });
+    }
+
+    function sendLocationToServer(location) {
+        console.log("wer",location);
+        return fetch("/Localizacion/ReceiveLocation", { // Cambia la ruta a "/NombreDelController/NombreDeLaAccion"
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(location)
+        });
+    }
+    
+    function obtenerValor() {
+        // Hacer una solicitud AJAX para enviar el formulario
+        // y obtener el valor retornado desde el servidor
+        // Aquí se utiliza jQuery para simplificar el ejemplo
+        $.ajax({
+        type: "POST",
+        url: "/Localizacion/ReceiveLocation",
+        data: $("form").serialize(),
+        success: function(response) {
+            // Mostrar el valor retornado en el campo de entrada
+            $("#valorRetornado").val(response);
+        }
+        });
+
+        // Evitar que el formulario se envíe de forma convencional
+        return false;
+    }
+
+
+    
+
+</script>
