@@ -1,8 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Net.Http;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 public class Address
@@ -15,24 +14,34 @@ namespace Amyra.Integration
 {
     public class OpenStreetMapApiIntegration
     {
-        private readonly ILogger<CurrencyExchangeApiIntegration> _logger;
+        private readonly ILogger<OpenStreetMapApiIntegration> _logger;
+        private const string API_URL="https://nominatim.openstreetmap.org/reverse";
 
         private readonly HttpClient httpClient;
 
-        public OpenStreetMapApiIntegration(ILogger<CurrencyExchangeApiIntegration> logger){
+        public OpenStreetMapApiIntegration(ILogger<OpenStreetMapApiIntegration> logger)
+        {
             _logger = logger;
             httpClient = new HttpClient();
-            //httpClient.DefaultRequestHeaders.Add(API_HEADER_KEY, API_KEY);
         }
 
-        public async Task<Address> GetExchangeRate(double latitude, double longitude){
+        
+        public async Task<Address> GetAddress(string latitude, string longitude){
+            double lat = Convert.ToDouble(latitude.Replace(',', '.'));
+            double lon = Convert.ToDouble(longitude.Replace(',', '.'));
+            string requestUrl = $"{API_URL}?lat={lat}&lon={lon}&format=json&zoom=18&addressdetails=1";
             
-            string requestUrl = $"https://nominatim.openstreetmap.org/reverse?lat={latitude}&lon={longitude}&format=json&zoom=18&addressdetails=1";
-            HttpResponseMessage response = await httpClient.GetAsync(requestUrl);
-            try{
+            try
+            {
+                HttpResponseMessage response = await httpClient.GetAsync(requestUrl);
+                return new Address
+                    {
+                        Road = requestUrl,
+                        City = response.StatusCode.ToString(),
+                    };
                 if (response.IsSuccessStatusCode)
                 {
-                    var result = await response.Content.ReadAsStringAsync();
+                    string result = await response.Content.ReadAsStringAsync();
                     dynamic data = JsonConvert.DeserializeObject(result);
 
                     string road = data.address.road;
@@ -44,13 +53,20 @@ namespace Amyra.Integration
                         City = city
                     };
                 }
-            }catch(Exception ex){
-                _logger.LogDebug($"Error al llamar a la API: {ex.Message}");
+                else
+                {
+                    _logger.LogError($"Error al llamar a la API: {response.StatusCode}");
+                }
             }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error al llamar a la API: {ex.Message}");
+            }
+
+
             return null;
-        }
+        }     
+
 
     }
-    
-
 }
