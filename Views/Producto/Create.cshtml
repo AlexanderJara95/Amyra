@@ -42,17 +42,28 @@
                 <input asp-for="Status" class="form-control" />
                 <span asp-validation-for="Status" class="text-danger"></span>
             </div>
+            <span style="margin-right: 2px;"></span> <!-- Espacio entre botones -->
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <div class="btn-group">
+                <input type="submit" value="Create" class="btn btn-custom" />
+                 <a asp-action="Index" class="btn btn-custom2" style="margin-left: 5px;">Volver</a>
+                </div> 
             </div>
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Volver</a>
-</div>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<style>
+    .btn-custom {
+        background-color: #f1a64f;
+        color: #000000;
+    }
+
+    .btn-custom2 {
+        background-color: #bdbdbd;
+        color: #000000;
+    }
+</style>

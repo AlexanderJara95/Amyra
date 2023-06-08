@@ -49,6 +49,18 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Modificar</a> |
-    <a asp-action="Index">Volver</a>
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-custom">Modificar</a> |
+    <a asp-action="Index" class="btn btn-custom2" style="margin-left: 5px;">Volver</a>
 </div>
+
+<style>
+    .btn-custom {
+        background-color: #f1a64f;
+        color: #000000;
+    }
+
+    .btn-custom2 {
+        background-color: #bdbdbd;
+        color: #000000;
+    }
+</style>
