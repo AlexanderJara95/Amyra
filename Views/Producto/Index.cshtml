@@ -1,16 +1,16 @@
 @model IEnumerable<Amyra.Models.Producto>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Lista de Productos";
 }
 
-<h1>Index</h1>
+<h1 style="text-align: center;">Lista de Productos</h1>
 
 <p>
-    <a href="@Url.Action("Create")" class="btn btn-custom">Crear Nuevo</a>
+    <a href="@Url.Action("Create")" class="btn  btn-marron">Crear Nuevo</a>
 </p>
 <table class="table">
-    <thead style="background-color: #ac8b65;">
+    <thead style="background-color: #767676;">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
