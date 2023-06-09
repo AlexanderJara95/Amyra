@@ -48,16 +48,16 @@
             <td>
                 @Html.DisplayFor(modelItem => item.PorcentajeDescuento)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageName)
+            <td class="align-middle text-center">
+                <img src='@Html.DisplayFor(modelItem => item.ImageName)' width="150">
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-custom">Editar</a>
-                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-custom btn-spacing">Detalle</a>
-                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-custom2 btn-spacing">Eliminar</a>
+            <td class="align-middle text-center">
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-marron" title="Editar"><i class="bi bi-pencil-square"></i></a>
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-plomo btn-spacing my-2" title="Detalle"><i class="bi bi-eye"></i></a>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-spacing" title="Eliminar"><i class="bi bi-trash3"></i></a>
             </td>
         </tr>
 }
