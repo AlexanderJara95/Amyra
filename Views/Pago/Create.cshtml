@@ -144,7 +144,7 @@
                 <form method="post" asp-action="ReceiveLocation" asp-controller="Pago" class="text-center">
                     <input id="latitude" type="hidden" name="latitude" value="">
                     <input id="longitude" type="hidden" name="longitude" value="">
-                    <input id="MontoTotalHidden" name="monto" type="hidden" value="@Model.MontoTotal" />
+                    <input id="monto" name="monto" type="hidden" value="@Model.MontoTotal" />
                     <button class="btn btn-success my-3" type="submit">Obtener ubicación actual <i class="bi bi-geo-alt"></i></button>
                 </form>  
                 <div class="mb-2 row">
@@ -184,8 +184,8 @@
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
                     position => {
-                        var latitude = document.getElementById("latitude");
-                        var longitude = document.getElementById("longitude");
+                        const latitude = document.getElementById("latitude");
+                        const longitude = document.getElementById("longitude");
                         // Actualiza los valores de los campos ocultos
                         latitude.value = position.coords.latitude;
                         longitude.value = position.coords.longitude;
