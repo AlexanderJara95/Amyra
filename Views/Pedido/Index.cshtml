@@ -1,10 +1,33 @@
 @model IEnumerable<Amyra.Models.Pedido>
 @{
-    ViewData["Title"] = "Pedido";  
+    ViewData["Title"] = "Pedido";
 }
 
-<h1>Pedidos</h1>
+<style>
+    /* Estilos para la tabla */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
 
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    /* Estilos para el encabezado */
+    h1 {
+        font-size: 24px;
+        margin-bottom: 16px;
+    }
+</style>
+
+<h1>Pedidos</h1>
 
 <table class="table">
     <thead>
@@ -22,7 +45,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.UserID)
@@ -34,6 +57,6 @@
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
         </tr>
-}
+        }
     </tbody>
 </table>
