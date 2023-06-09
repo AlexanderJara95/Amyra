@@ -10,8 +10,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Dynamic;
 using Amyra.Models;
-using Amyra.Integration;
-
 
 namespace Amyra.Controllers
 {
@@ -20,7 +18,6 @@ namespace Amyra.Controllers
         private readonly ILogger<ProformaController> _logger;
         private readonly ApplicationDbContext _dbcontext;
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly OpenStreetMapApiIntegration _apiIntegration;
 
         public ProformaController(
             ILogger<ProformaController> logger,
@@ -142,7 +139,7 @@ namespace Amyra.Controllers
         public class PagoTotalViewModel{
             public bool TransaccionExitosa { get; set; }
             public string Mensaje { get; set; }
-        }      
+        } 
 
     }
 }

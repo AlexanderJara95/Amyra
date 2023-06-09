@@ -25,25 +25,7 @@ namespace Amyra.Controllers
         public IActionResult Index()
         {
             return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> ReceiveLocation(string latitude, string longitude)
-        {
-            // Hacer lo que necesites con la ubicación recibida del cliente
-            // Puede ser almacenarla en una base de datos, realizar alguna acción específica, etc.
-            // location.Latitude contiene la latitud y location.Longitude contiene la longitud
-
-            // Obtener la dirección utilizando OpenStreetMapApiIntegration
-            Address address = await _apiIntegration.GetAddress(latitude, longitude);
-
-            // Devolver la ubicación y la dirección en la respuesta JSON
-            return Ok(new
-            {
-                Road = address?.Road,
-                City = address?.City
-            });
-        }
+        }      
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

@@ -1,7 +1,13 @@
 @model Amyra.Models.Pago
 
 @{
-    ViewData["Title"] = "Pago";
+    ViewData["Title"] = "Pago y envío";
+    
+    // Obtener la información de ubicación desde ViewData
+    string direccion = ViewData["direccion"] as string;
+    string ciudad = ViewData["ciudad"] as string;
+    string departamento = ViewData["departamento"] as string;
+    string pais = ViewData["pais"] as string;
 }
 
 <style>
@@ -27,11 +33,6 @@
         width: 16.67%;
     }
 
-    .form-control {
-        border-radius: 10px;
-        padding: 12px;
-        font-size: 16px;
-    }
 
     .btn-primary {
         padding: 12px 30px;
@@ -63,47 +64,56 @@
         max-width: 400px;
         border-radius: 10px;
     }
+    .bg-body-tertiary{
+        border: 1px solid #a8a8a8;
+    }
 </style>
 
 <h1>@ViewData["Title"]</h1>
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-8">
+        <div class="col-sm-6 p-5 mb-4 bg-body-tertiary rounded-3">
+            <div class="row justify-content-end">
+                <div class="col-auto">
+                    <img src="/img/tarjetas-credito-logos.png" class="img-fluid">
+                </div>
+            </div>
+
             <form asp-controller="Pago" asp-action="Pagar">
                 <div class="form-group row">
                     <input type="hidden" asp-for="UserID" />
-                    <div class="col-sm-6 pb-2">                        
+                    <div class="pb-2">                        
                         <label class="control-label">Nombre de Tarjeta</label>
                     </div>
-                    <div class="col-sm-10">
-                        <input asp-for="NombreTarjeta" class="form-control" />
+                    <div class="col-sm-12">
+                        <input asp-for="NombreTarjeta" class="form-control" required />
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-sm-6 pb-2">
+                    <div class="pb-2">
                         <label class="control-label">Número de Tarjeta</label>
                     </div>
-                    <div class="col-sm-10">
-                        <input asp-for="NumeroTarjeta" class="form-control" data-inputmask="'mask': '9999-9999-9999-9999'" />
+                    <div class="col-sm-12">
+                        <input asp-for="NumeroTarjeta" class="form-control" data-inputmask="'mask': '9999-9999-9999-9999'" required/>
                     </div>
                 </div>
-
                 <div class="form-group row">
-                    <div class="col-sm-6 pb-2">
-                        <label class="control-label">Fecha de Expiración</label>
+                    <div class="col-sm-6">
+                        <div class="pb-2">
+                            <label class="control-label">Fecha de Expiración</label>
+                        </div>
+                        <div class="col-sm-12">
+                            <input asp-for="DueDateYYMM" class="form-control" data-inputmask="'mask': '99/99', 'placeholder': 'yy/mm'"  required/>
+                        </div>
                     </div>
-                    <div class="col-sm-10">
-                        <input asp-for="DueDateYYMM" class="form-control" data-inputmask="'mask': '99/99', 'placeholder': 'yy/mm'" />
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <div class="col-sm-6 pb-2">
-                        <label asp-for="Cvv" class="control-label"></label>
-                    </div>
-                    <div class="col-sm-10">
-                        <input asp-for="Cvv" class="form-control" data-inputmask="'mask': '999', 'placeholder': '999'" />
+                    <div class="col">
+                        <div class="pb-2">
+                            <label asp-for="Cvv" class="control-label"></label>
+                        </div>
+                        <div class="col-sm-12">
+                            <input asp-for="Cvv" class="form-control" data-inputmask="'mask': '999', 'placeholder': '999'" required/>
+                        </div>
                     </div>
                 </div>
 
@@ -111,26 +121,89 @@
                     <div class="col-sm-6 pb-2">
                         <label class="control-label">Monto Total</label>
                     </div>
-                    <div class="col-sm-10">
+                    <div class="col-sm-12">
                         <input asp-for="MontoTotal" class="form-control" data-thousands="," data-decimal="." readonly/>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <div class="col-sm-2"></div>
-                    <div class="col-sm-10">
-                        <button type="submit" class="btn btn-lg btn-marron">Pagar</button>
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-lg btn-marron">Pagar</button>                        
+                        <a href="/Proforma" class="btn btn-lg btn-plomo">Cancelar</a>
                     </div>
                 </div>
             </form>
 
             <h1 class="error-message">@ViewData["Message"]</h1>
         </div>
-
-        <div class="col-sm-4">
-            <div class="image-container">
+        <div class="col-sm-6 p-5 mb-4 bg-body-tertiary rounded-3">
+            <div class="image-container pbs-3">
                 <img src="https://peru21.pe/resizer/QZqTWIO312BJf2_PIjgcrcOYKdg=/1200x800/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/LWIWWX4J5VBLROBEWG5524P2XQ.jpeg" alt="Imagen de ejemplo">
+            </div>
+            <div class="row">
+                <form method="post" asp-action="ReceiveLocation" asp-controller="Pago" class="text-center">
+                    <input id="latitude" type="hidden" name="latitude" value="">
+                    <input id="longitude" type="hidden" name="longitude" value="">
+                    <input id="MontoTotalHidden" name="monto" type="hidden" value="@Model.MontoTotal" />
+                    <button class="btn btn-success my-3" type="submit">Obtener ubicación actual <i class="bi bi-geo-alt"></i></button>
+                </form>  
+                <div class="mb-2 row">
+                    <label for="inputPassword" class="col-sm-4 col-form-label">Dirección</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control form-control-sm" value="@direccion">        
+                    </div>
+                </div>
+                <div class="mb-2 row">
+                    <label for="inputPassword" class="col-sm-4 col-form-label">Ciudad</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control form-control-sm" value="@ciudad">        
+                    </div>
+                </div>
+                <div class="mb-2 row">
+                    <label for="inputPassword" class="col-sm-4 col-form-label">Deppartamento</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control form-control-sm" value="@departamento">        
+                    </div>
+                </div>
+                <div class="mb-2 row">
+                    <label for="inputPassword" class="col-sm-4 col-form-label">País</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control form-control-sm" value="@pais" disabled readonly>        
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    window.onload = function() {
+        getCurrentLocation();
+    };
+    function getCurrentLocation() {
+        return new Promise((resolve, reject) => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    position => {
+                        var latitude = document.getElementById("latitude");
+                        var longitude = document.getElementById("longitude");
+                        // Actualiza los valores de los campos ocultos
+                        latitude.value = position.coords.latitude;
+                        longitude.value = position.coords.longitude;
+                        console.log(latitude.value,longitude.value);
+                        resolve({ latitude, longitude});
+                    },
+                    error => {
+                        reject(error);
+                    }
+                );
+            } else {
+                reject("Geolocalización no es soportada por este navegador.");
+            }
+        });
+    }
+
+
+
+    
+
+</script>
